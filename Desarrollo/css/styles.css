@@ -160,3 +160,11 @@ main img {
         rotate: 360deg;
     }
 }
+
+.footer {
+    text-align: center;
+    padding: var(--espacio-md);
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
