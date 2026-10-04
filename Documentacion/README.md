@@ -11,9 +11,9 @@
     * abajo un boton de generar
 
 - los clicks en generar de la pagina generarhtml deben:
-    * Cuando se clickea generar debe haber algun tipo de animacion sutil que muestre que se esta armando la paleta (la imagen de portada deja de girar y se va achicando lentamente en su posicion, tomando el centro de la imagen como eje, hasta desaparecer)
-    * cuando la paleta esta lista mostrar el resultado en un div central rectangular que ocupe toda la una franja horizontal dividido en la cantidad de franjas necesarias segun la cantidad de colores solicitados 
-    * debajo de cada color, centrado en relacion a la franja, se debe mostrar el codigo hex de cada color
+    * Cuando se clickea generar debe haber algun tipo de animacion sutil que muestre que se esta armando la paleta 
+    * cuando la paleta esta lista mostrar el resultado en el div central dividido en la cantidad de franjas necesarias segun la cantidad de colores solicitados 
+    * debajo de cada color, centrado en relacion a la franja, se debe mostrar el codigo hex/hsl de cada color
     * debajo del div que muestra el resultado de los colores debe aparecer un boton que diga guardar paleta y debe guaradarlo en localstorage
 
 - Cosas que debe haver en Mis Paletas

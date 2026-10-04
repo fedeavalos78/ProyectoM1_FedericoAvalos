@@ -1,12 +1,13 @@
 console.log("Script cargado correctamente.");
 
-const genPaleta = document.querySelectorAll(".gen-paleta");
+const botonGenerar = document.querySelector(".gen-paleta");
+const selectCantidad = document.querySelector(".cantidad");
+const selectFormato = document.querySelector(".for-c");
 
-genPaleta.forEach(function(paleta) {
-  paleta.addEventListener('click', function(event) {
-    console.log('Paleta generada');
-    const paletaColor = `hsl(${Math.floor(Math.random() * 360)}, ${Math.floor(Math.random() * 100)}%, ${Math.floor(Math.random() * 100)}%)`;})
+botonGenerar.addEventListener("click", function () {
+  const cantColores = selectCantidad.value;
+  const formatoColores = selectFormato.value;
 
-    console.log('Paleta generada');
-
+  console.log(cantColores);
+  console.log(formatoColores);
 });
