@@ -133,6 +133,7 @@ main {
     font-size: 1rem;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    font-weight: bold;
 }
 
 .btn:hover {
@@ -230,12 +231,16 @@ margin-bottom: 2rem;
     display: flex;
     flex-direction: column;
     justify-content: center;   
-    gap: 2rem; 
+    gap: 1rem; 
     align-items: center;
+    text-align: center;
 }
 
 label, select  {
     font-size: 2rem;
+    font-weight: bold;
 }
-
-
+/* 
+.gen-paleta {
+    
+} */
