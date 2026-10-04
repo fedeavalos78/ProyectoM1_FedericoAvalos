@@ -111,7 +111,6 @@ h1, h2, h3,
 
 main {
     display: flex;
-    align-items: space-between;
     justify-content: space-between;
 }
 
@@ -122,11 +121,7 @@ main {
     align-items: center;
     text-align: center;
     padding: var(--espacio-lg);
-}
-
-main .portada {
     flex: 1;
-    padding: 0;
 }
 
 .btn {
@@ -150,13 +145,14 @@ main .portada {
 margin-bottom: 2rem;
 }
 
-main img {
+.rueda-cromatica {
+    flex: 1;
     height: 100vh;
     width: auto;
     display: block;
-    flex-shrink: 0;
     rotate: 360;
     animation: rotar 10s linear infinite;
+    object-fit: contain;
 }
 
 
@@ -189,16 +185,17 @@ main img {
     margin-bottom: 2rem;
     text-align: center;
 }
-
+.portada-gen {
+    width: 100%;
+}
 .color-line {
     display: flex;
-    width: 100vw;
+    width: 100%;
     margin-bottom: 2rem;
     margin-top: 2rem;
     border-bottom: solid 2px;
     border-color: var(--color-primario);
     padding-bottom: 1rem;
-
 }
 
 .color{
