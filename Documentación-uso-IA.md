@@ -27,7 +27,33 @@ R: Codigo + explicación
 Cuando itero pedidos sobre un mismo tema/codigo para llegar a mi objetivo, registrar esa iteracion de manera muy breve.
 
 ###REGISTRO
-
+####Sesión 04/10/2026 (mañana)
+P: Sitios de generadores de paletas aleatorias y cómo funcionan
+R: Links y lógica (HSL, armonías, bloqueo, N colores)
+P: Armar franja de 9 colores de borde a borde
+R: Errores (100%vw, h2 dentro del flex) y plan con 9 div + flex: 1
+P: Diferencia entre vh y vw
+R: Explicación, y 100% para el ancho
+P: Qué es flex: 1
+R: Reparte el espacio en partes iguales
+P: Mostrar el código HSL debajo de cada color
+R: Texto debajo de la franja, columna con bloque + texto
+P: Centrar "Colorfly Studio" en el navbar
+R: Grid de tres columnas
+: Cómo se definen las 3 columnas
+R: grid-template-columns: 1fr auto 1fr
+P: Revisión de HTML y CSS de la franja (3 iteraciones)
+R: Errores: flex: 1fr, display: flex en .color, reglas viejas, 0,5rem
+P: Selector para clases que empiezan con "c"
+R: [class^="c"] existe pero no conviene, mejor clase compartida .c
+P: El botón "Generar" no se ve
+R: main flex en fila lo empujaba afuera, moverlo dentro del div
+P: Dropdown para elegir 6, 8 o 9
+R: select + option, código básico
+P: Para qué sirven label y for
+R: Accesibilidad y asociación por id
+P: Dos elementos en 1/3 y 2/3 con flex
+R: flex: 1 y flex: 2 - Descartada
 
 ###REPOSITORIO
 GitHub: https://github.com/fedeavalos78/ProyectoM1_FedericoAvalos
