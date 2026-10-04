@@ -58,8 +58,8 @@ body {
    ============================================ */
 
 .navbar {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
     align-items: center;
     padding: var(--espacio-sm) var(--espacio-md);
     background-color: var(--color-fondo);
@@ -84,8 +84,8 @@ body {
     list-style: none;
     display: flex;
     gap: var(--espacio-md);
-    color: var(--color-primario)
-
+    color: var(--color-primario);
+    justify-self: end;
 }
 
 ul a {
@@ -93,7 +93,15 @@ ul a {
   color: inherit; 
 }
 
-/* chequear bien donde va este bloque  */
+.navbar p {
+    position: relative;
+    text-align: center;
+    font-size: 2rem;
+}
+
+/* ============================================
+   PORTADA   
+   ============================================ */
 
 h1, h2, h3,
 .logo p {
@@ -161,6 +169,10 @@ main img {
     }
 }
 
+/* ============================================
+   FOOTER  
+   ============================================ */
+
 .footer {
     text-align: center;
     padding: var(--espacio-md);
@@ -168,3 +180,65 @@ main img {
     bottom: 0;
     width: 100%;
 }
+
+/* ============================================
+   GENERAR.HTML  
+   ============================================ */
+.title {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.color-line {
+    display: flex;
+    width: 100vw;
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+    border-bottom: solid 2px;
+    border-color: var(--color-primario);
+    padding-bottom: 1rem;
+
+}
+
+.color{
+    flex: 1;
+}
+
+.c{
+   height: 33vh; 
+}
+
+.color p{
+    font-size: 0,5rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.c1 {background-color: hsl(280, 70%, 10%)}
+.c2 {background-color: hsl(280, 70%, 20%)}
+.c3 {background-color: hsl(280, 70%, 30%)}
+.c4 {background-color: hsl(280, 70%, 40%)}
+.c5 {background-color: hsl(280, 70%, 50%)}
+.c6 {background-color: hsl(280, 70%, 60%)}
+.c7 {background-color: hsl(280, 70%, 70%)}
+.c8 {background-color: hsl(280, 70%, 80%)}
+.c9 {background-color: hsl(280, 70%, 90%)}
+
+.portada-gen {
+    display: flex;
+    flex-direction: column;
+}
+.controles {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;   
+    gap: 2rem; 
+    align-items: center;
+}
+
+label, select  {
+    font-size: 2rem;
+}
+
+

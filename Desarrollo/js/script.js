@@ -9,5 +9,4 @@ genPaleta.forEach(function(paleta) {
 
     console.log('Paleta generada');
 
-
 });
