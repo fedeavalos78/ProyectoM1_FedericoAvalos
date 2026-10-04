@@ -1,6 +1,6 @@
 console.log("Script cargado correctamente.");
 
-const botonGenerar = document.querySelector(".gen-paleta");
+const botonGenerar = document.querySelector(".generar-paleta");
 const selectCantidad = document.querySelector(".cantidad");
 const selectFormato = document.querySelector(".for-c");
 
