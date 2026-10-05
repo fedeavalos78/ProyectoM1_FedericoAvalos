@@ -69,6 +69,35 @@ R: Pasos 3-5 (número, función de color, bucle)
 P: "Dice undefined"
 R: Era scope: probó en consola; Number() + typeof adentro
 
+##### Sesión 05/10/2026 (mañana y tarde)
+
+P: Armar paleta aleatoria según cantidad y formato elegidos
+R: Plan: todo en HSL, colores análogos (opción B), HEX solo al mostrar
+
+P: Generar tono base aleatorio
+R: Math.random + Math.floor, y Number() para la cantidad
+
+P: Calcular los tonos de la paleta (iteré 2 veces)
+R: for + PASO + % 360; corregí pisar tonoBase y % sin asignar
+
+P: ¿Dónde va el código y qué hace % 360?
+R: Dentro del click; el módulo da el resto, como un reloj
+
+P: Crear las franjas con JS (iteré 3 veces)
+R: createElement, appendChild, innerHTML = ""; corregí backgroundColor con template string, estructura anidada y un typo
+
+P: Mostrar formato y valores en los textos
+R: textContent + if/else (usar ===)
+
+P: Conversión HSL → HEX
+R: Funciones numeroAHex y hslAHex con explicación
+
+P: ¿Dónde declaro las funciones?
+R: Afuera del addEventListener, antes de él
+
+P: Integré hslAHex en el else y probé con HEX
+R: Funciona, paleta completa en ambos formatos
+
 ### REPOSITORIO
 GitHub: https://github.com/fedeavalos78/ProyectoM1_FedericoAvalos
 Github Pages: https://fedeavalos78.github.io/ProyectoM1_FedericoAvalos/
