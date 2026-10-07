@@ -6,9 +6,11 @@ const selectFormato = document.getElementById("for-c");
 const contenedor = document.querySelector(".color-line");
 const toastGen = document.querySelector(".toast");
 const toastCop = document.querySelector(".toast-copiar");
-
+const tonos = [];
 let temp = 0
-let tempCopiar = 0
+let tempCopiar = 0git 
+let tonosUltPal =[]
+let tonosBloq = []
 
 function numeroAHex(numero) {
   const hex = Math.round(numero).toString(16);
@@ -29,7 +31,6 @@ function hslAHex(tono, saturacion, luminosidad) {
   return "#" + numeroAHex(canal(0)) + numeroAHex(canal(8)) + numeroAHex(canal(4));
 }
 
-
 if (botonGenerar) {
   botonGenerar.addEventListener("click", function () {
     const cantColores = selectCantidad.value;
@@ -44,7 +45,6 @@ if (botonGenerar) {
 
     contenedor.innerHTML = "";
 
-    const tonos = [];
     const PASO = 30;
     const SATURACION = 70; 
     const LUMINOSIDAD = 50;
