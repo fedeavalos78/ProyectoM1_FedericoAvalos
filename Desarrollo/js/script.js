@@ -3,8 +3,9 @@ console.log("Script cargado correctamente.");
 const botonGenerar = document.querySelector(".generar-paleta");
 const selectCantidad = document.getElementById("cantidad");
 const selectFormato = document.getElementById("for-c");
-
 const contenedor = document.querySelector(".color-line");
+const toastGen = document.querySelector(".toast");
+let temp = 0
 
 function numeroAHex(numero) {
   const hex = Math.round(numero).toString(16);
@@ -73,6 +74,11 @@ botonGenerar.addEventListener("click", function () {
     franjaVertical.appendChild(franjaTextoValores);  
 
   } 
+  clearTimeout(temp);
+  toastGen.classList.add("visible");
+  temp = setTimeout(function () {
+    toastGen.classList.remove("visible");
+    }, 1000);
   console.log(tonos);
 });
 
