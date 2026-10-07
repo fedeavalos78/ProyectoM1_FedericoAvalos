@@ -5,7 +5,10 @@ const selectCantidad = document.getElementById("cantidad");
 const selectFormato = document.getElementById("for-c");
 const contenedor = document.querySelector(".color-line");
 const toastGen = document.querySelector(".toast");
+const toastCop = document.querySelector(".toast-copiar");
+
 let temp = 0
+let tempCopiar = 0
 
 function numeroAHex(numero) {
   const hex = Math.round(numero).toString(16);
@@ -26,60 +29,74 @@ function hslAHex(tono, saturacion, luminosidad) {
   return "#" + numeroAHex(canal(0)) + numeroAHex(canal(8)) + numeroAHex(canal(4));
 }
 
-botonGenerar.addEventListener("click", function () {
-  const cantColores = selectCantidad.value;
-  const formatoColores = selectFormato.value;
-  console.log(cantColores);
-  console.log(formatoColores);
-  const cantColNum = Number(cantColores);
-  console.log(cantColNum);
 
-  const tonoBase = Math.floor (Math.random() * 360);
-  console.log(tonoBase);
+if (botonGenerar) {
+  botonGenerar.addEventListener("click", function () {
+    const cantColores = selectCantidad.value;
+    const formatoColores = selectFormato.value;
+    console.log(cantColores);
+    console.log(formatoColores);
+    const cantColNum = Number(cantColores);
+    console.log(cantColNum);
 
-  contenedor.innerHTML = "";
+    const tonoBase = Math.floor (Math.random() * 360);
+    console.log(tonoBase);
 
-  const tonos = [];
-  const PASO = 30;
-  const SATURACION = 70; 
-  const LUMINOSIDAD = 50;
+    contenedor.innerHTML = "";
 
-  for (let i = 0; i < cantColNum; i++) {
-    const tonoPaleta = tonoBase+(i*PASO);
-    const tonoFinal = tonoPaleta % 360;
-    tonos.push(tonoFinal);
+    const tonos = [];
+    const PASO = 30;
+    const SATURACION = 70; 
+    const LUMINOSIDAD = 50;
 
-    const franjaVertical = document.createElement("div");
-    franjaVertical.classList.add("color");
-    contenedor.appendChild(franjaVertical);
+    for (let i = 0; i < cantColNum; i++) {
+      const tonoPaleta = tonoBase+(i*PASO);
+      const tonoFinal = tonoPaleta % 360;
+      tonos.push(tonoFinal);
 
-    const franjaColor = document.createElement("div");
-    franjaColor.classList.add("c");
-    franjaColor.style.backgroundColor = `hsl(${tonoFinal}, ${SATURACION}%, ${LUMINOSIDAD}%)`;
-    franjaVertical.appendChild(franjaColor);
+      const franjaVertical = document.createElement("div");
+      franjaVertical.classList.add("color");
+      contenedor.appendChild(franjaVertical);
 
-    const franjaTextoFormato = document.createElement("p");
-    franjaTextoFormato.textContent = formatoColores;
-    franjaVertical.appendChild(franjaTextoFormato);
+      const franjaColor = document.createElement("div");
+      franjaColor.classList.add("c");
+      franjaColor.style.backgroundColor = `hsl(${tonoFinal}, ${SATURACION}%, ${LUMINOSIDAD}%)`;
+      franjaVertical.appendChild(franjaColor);
 
-    const franjaTextoValores = document.createElement("p");
+      const franjaTextoFormato = document.createElement("p");
+      franjaTextoFormato.textContent = formatoColores;
+      franjaVertical.appendChild(franjaTextoFormato);
+
+      const franjaTextoValores = document.createElement("p");
+      
+      if (formatoColores === "HSL") {
+        franjaTextoValores.textContent = `${tonoFinal}, ${SATURACION}%, ${LUMINOSIDAD}%`;      
+        } 
+        else {
+          franjaTextoValores.textContent = hslAHex(tonoFinal, SATURACION, LUMINOSIDAD);
+        }
+      
+      franjaVertical.appendChild(franjaTextoValores);
+      
+      franjaColor.addEventListener("click", function () {
+        navigator.clipboard.writeText(franjaTextoValores.textContent).then(function() {
+          clearTimeout(tempCopiar);
+          toastCop.classList.add("visible");
+          tempCopiar = setTimeout(function () {
+            toastCop.classList.remove("visible");
+            }, 1000);  
+        });
+      });
+
+    } 
+    clearTimeout(temp);
+    toastGen.classList.add("visible");
+    temp = setTimeout(function () {
+      toastGen.classList.remove("visible");
+      }, 1000);
+
     
-    if (formatoColores === "HSL") {
-      franjaTextoValores.textContent = `${tonoFinal}, ${SATURACION}%, ${LUMINOSIDAD}%`;      
-      } 
-      else {
-        franjaTextoValores.textContent = hslAHex(tonoFinal, SATURACION, LUMINOSIDAD);
-      }
-    
-    franjaVertical.appendChild(franjaTextoValores);  
-
-  } 
-  clearTimeout(temp);
-  toastGen.classList.add("visible");
-  temp = setTimeout(function () {
-    toastGen.classList.remove("visible");
-    }, 1000);
-  console.log(tonos);
-});
-
+    console.log(tonos);
+  });
+}
 

@@ -234,7 +234,43 @@ R: Estructura correcta (position: relative, content: attr(), centrado, transitio
 P: Explicame bien cómo funciona ::after.
 R: Es un pseudo-elemento que aparece como último hijo del elemento y necesita content para existir. attr(data-tooltip) lee el texto del HTML. Hereda estilos del padre, y por eso el botón necesita position: relative. Se explicó la diferencia entre :: (pseudo-elemento) y : (pseudo-clase), sus limitaciones (no funciona en <img>/<input>) y cómo verlo en F12.
 
+##### Sesión 07/10/2026 (tarde)
 
+P: Quiero que al hacer clic sobre un color de la paleta se copie el código al portapapeles.
+R: Se presentó la idea en 3 piezas: escuchar el click en cada franja, copiar con navigator.clipboard.writeText(...) y avisar con microfeedback. Se plantearon decisiones (qué copiar, dónde va el listener, cómo avisar) y riesgos: file:/// puede limitar el portapapeles, writeText devuelve una promesa y los dos toasts podrían pisarse.
+
+P: Decisiones: se copia lo que se muestra abajo (los dos <p>), listener en cada franja, segundo toast solo para copiar y avisar que se puede copiar.
+R: Se dejó cerrado el rumbo y se propuso copiar solo el valor (no la etiqueta HEX/HSL), con un aviso fijo en la página, cursor: pointer y un segundo toast con clases toast + toast-copiar. Para que no se pise con el primero, el JS lo busca por .toast-copiar y usa su propia variable de temporizador.
+
+P: Copiar solo el valor, aviso con texto fijo, toast "Color copiado", y ¿dónde está el cursor?
+R: Paso 1 (HTML): segundo div.toast.toast-copiar hermano del primero, fuera de .color-line, y un <p class="aviso-copiar"> también fuera de .color-line para que innerHTML = "" no lo borre. cursor: pointer cambia el puntero a manito para indicar que algo es clickeable.
+
+P: Pienso poner el listener fuera de la función, porque la paleta ya tiene que estar lista.
+R: Se explicó que innerHTML = "" borra las franjas y los listeners viejos con ellas, por lo que un listener "afuera" solo agarraría las franjas existentes. Se ofreció la delegación de eventos (event.target.closest(".color")) en .color-line.
+
+P: Volvamos a la opción anterior (un listener por franja) y prefiero que sea solo el cuadrado.
+R: Se volvió al listener en cada franja dentro del for, sobre franjaColor, con cursor: pointer en .c y no en .color. El valor a copiar sale de franjaTextoValores.textContent, que el listener "recuerda" por closure. Se sugirió probar en pasos: console.log, luego writeText, luego el toast.
+
+P: Al pegar sale [object HTMLParagraphElement].
+R: Lo encontraste vos: se estaba copiando el elemento <p> entero y no su texto. La propiedad es .textContent (con la C mayúscula): a la izquierda del = escribe y como valor lee. Pista general: [object ...] significa que se pasó el objeto en vez de una propiedad.
+
+P: ¿Por qué los selects no tienen la fuente del resto de la página?
+R: Los elementos de formulario (select, button, input) traen su fuente propia y cortan la herencia. Solución: font-family: inherit. Además, el @import trae Nunito pero el body pide 'Nunito Sans', que no está importada.
+
+P: Apliqué inherit y el select sigue distinto; te paso lo que dice Computed.
+R: La herencia funcionaba: font-family muestra la lista del body y Rendered fonts muestra Segoe UI, porque Nunito Sans no existe y el navegador cae en la siguiente de la lista. El arreglo real es cambiar 'Nunito Sans' por 'Nunito' en el body. Se sugirió dejar una sola regla font-family: inherit en vez de dos duplicadas.
+
+P: ¿Por qué la frase "Hacé click en un color..." sí tiene la fuente de la página?
+R: Es un <h3>, y la regla h1, h2, h3 le asigna Fredoka, que sí está importada, sin depender de la herencia. Se anotó que, como es un aviso y no un título, conviene que más adelante sea un <p> con clase propia.
+
+P: VS Code marca "} expected" en styles.css.
+R: Falta una llave de cierre en alguna regla anterior. La pista fue el sticky scroll de VS Code, que mostraba .btnPortada::after dentro de label, select. Se indicó ir a la línea 243 con Ctrl + G, buscar la } faltante y verificar con Shift + Alt + F. Lo resolviste vos. Se marcó que opacity: 0.7 en .btnPortada:hover::after deja el tooltip semitransparente.
+
+P: Te paso mi versión del listener con el toast de copiar.
+R: La lógica estaba bien (toast y temporizador propios, clearTimeout), pero faltaban dos cosas: el nombre decía ranjaColor y no cerraba el addEventListener, y el aviso estaba afuera de la promesa, así que se mostraría aunque la copia fallara. Corrección: mover el toast adentro de .then(...).
+
+P: Pasame toda la función para comparar.
+R: Se entregó el bloque completo: franjaColor.addEventListener("click", ...) con navigator.clipboard.writeText(franjaTextoValores.textContent).then(...) y adentro clearTimeout(tempCopiar), classList.add("visible") y setTimeout(..., 1000). Los cierres son }, 1000); y dos });.
 
 ### REPOSITORIO
 GitHub: https://github.com/fedeavalos78/ProyectoM1_FedericoAvalos

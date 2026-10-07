@@ -65,7 +65,7 @@ body {
     background-color: var(--color-fondo);
     color: var(--color-negro);
     border-bottom: 2px solid var(--color-primario);
-    font-weight: bold;
+    font-family: "Fredoka", sans-serif;
 }
 
 .logo {
@@ -97,6 +97,7 @@ ul a {
     position: relative;
     text-align: center;
     font-size: 2rem;
+    font-family: 'Fredoka', sans-serif;
 }
 
 /* ============================================
@@ -206,7 +207,8 @@ margin-bottom: 2rem;
 }
 
 .c{
-   height: 33vh; 
+   height: 33vh;
+   cursor: pointer;
 }
 
 .color p{
@@ -242,7 +244,7 @@ label, select  {
     font-size: 2rem;
     font-weight: bold;
 }
-
+    
 /* ====================================
     TOOLTIPS
    ==================================== */
@@ -276,8 +278,6 @@ label, select  {
 .btnPortada {
     position: relative;
 }
-
-
 
 .btnPortada::after {
     content: attr(data-tooltip);
