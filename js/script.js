@@ -8,7 +8,7 @@ const toastGen = document.querySelector(".toast");
 const toastCop = document.querySelector(".toast-copiar");
 const tonos = [];
 let temp = 0
-let tempCopiar = 0git 
+let tempCopiar = 0 
 let tonosUltPal =[]
 let tonosBloq = []
 
