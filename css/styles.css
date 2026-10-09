@@ -66,7 +66,7 @@ body {
     padding: var(--espacio-sm) var(--espacio-md);
     background-color: var(--color-fondo);
     color: var(--color-negro);
-    border-bottom: 2px solid var(--color-primario);
+    border-bottom: 2px solid hsl(59, 100%, 64%);;
     font-family: "Fredoka", sans-serif;
 }
 
@@ -201,8 +201,7 @@ margin-bottom: 2rem;
     width: 100%;
     margin-bottom: 2rem;
     margin-top: 2rem;
-    border-bottom: solid 2px;
-    border-color: var(--color-primario);
+    border-bottom: solid 2px hsl(134, 70%, 50%);
     padding-bottom: 1rem;
 }
 
@@ -244,9 +243,21 @@ margin-bottom: 2rem;
     text-align: center;
 }
 
+.tituloClickCopiar {
+    color: hsl(191, 70%, 50%);
+}
+
+.tituloCantCol {
+    color: hsl(338, 70%, 50%);
+}
+
+.tituloFormato {
+    color: hsl(151, 70%, 50%);
+}
+
 label, select  {
     font-size: 2rem;
-    font-weight: bold;
+    font-weight: bold;    
 }
 
 .botones-gen-guard {
