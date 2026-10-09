@@ -1,16 +1,29 @@
-console.log("Script cargado correctamente.");
+// console.log("Script cargado correctamente.");
 
+// declaración de variables
+
+// variables de elementos del DOM
 const botonGenerar = document.querySelector(".generar-paleta");
 const selectCantidad = document.getElementById("cantidad");
 const selectFormato = document.getElementById("for-c");
 const contenedor = document.querySelector(".color-line");
 const toastGen = document.querySelector(".toast");
 const toastCop = document.querySelector(".toast-copiar");
+
+//array para armar paleta
 const tonos = [];
-let temp = 0
-let tempCopiar = 0 
-let tonosUltPal =[]
-let tonosBloq = []
+
+//variables para armar paletas de colores
+const PASO = 30;
+const SATURACION = 70;
+const LUMINOSIDAD = 50;
+
+//variables para timeout
+let temp = 0;
+let tempCopiar = 0; 
+
+// funciones para transformar hsl/hex - ACLARACIÓN: esta función compleja 
+// fue generada integramente con IA
 
 function numeroAHex(numero) {
   const hex = Math.round(numero).toString(16);
@@ -31,44 +44,45 @@ function hslAHex(tono, saturacion, luminosidad) {
   return "#" + numeroAHex(canal(0)) + numeroAHex(canal(8)) + numeroAHex(canal(4));
 }
 
-if (botonGenerar) {
+  // funcion de generar
   botonGenerar.addEventListener("click", function () {
     const cantColores = selectCantidad.value;
     const formatoColores = selectFormato.value;
-    console.log(cantColores);
-    console.log(formatoColores);
     const cantColNum = Number(cantColores);
-    console.log(cantColNum);
-
+    // console.log(cantColNum);
     const tonoBase = Math.floor (Math.random() * 360);
-    console.log(tonoBase);
-
+    
+    // Limpia el div de los colores de portada
     contenedor.innerHTML = "";
 
-    const PASO = 30;
-    const SATURACION = 70; 
-    const LUMINOSIDAD = 50;
-
+    
+    // for que genera los colores, los divs donde van los colores
+    // y el texto con el valor de cada color
     for (let i = 0; i < cantColNum; i++) {
       const tonoPaleta = tonoBase+(i*PASO);
       const tonoFinal = tonoPaleta % 360;
       tonos.push(tonoFinal);
 
+      //crea el div donde va a ir el color con el texto del codigo
       const franjaVertical = document.createElement("div");
       franjaVertical.classList.add("color");
       contenedor.appendChild(franjaVertical);
 
+      //crea el div donde va a ir solo el color
       const franjaColor = document.createElement("div");
       franjaColor.classList.add("c");
       franjaColor.style.backgroundColor = `hsl(${tonoFinal}, ${SATURACION}%, ${LUMINOSIDAD}%)`;
       franjaVertical.appendChild(franjaColor);
 
+      //crea el texto del formato
       const franjaTextoFormato = document.createElement("p");
       franjaTextoFormato.textContent = formatoColores;
       franjaVertical.appendChild(franjaTextoFormato);
-
+      
+      //crea el <p> del codigo
       const franjaTextoValores = document.createElement("p");
       
+      //if para generar el codigo de color en el formato solicitado
       if (formatoColores === "HSL") {
         franjaTextoValores.textContent = `${tonoFinal}, ${SATURACION}%, ${LUMINOSIDAD}%`;      
         } 
@@ -76,8 +90,10 @@ if (botonGenerar) {
           franjaTextoValores.textContent = hslAHex(tonoFinal, SATURACION, LUMINOSIDAD);
         }
       
+      //carga el texto en <p>
       franjaVertical.appendChild(franjaTextoValores);
       
+      //event listener para copiar codigo de color clickeando - timeout toast
       franjaColor.addEventListener("click", function () {
         navigator.clipboard.writeText(franjaTextoValores.textContent).then(function() {
           clearTimeout(tempCopiar);
@@ -89,6 +105,7 @@ if (botonGenerar) {
       });
 
     } 
+    //timeout toast  generar paletas
     clearTimeout(temp);
     toastGen.classList.add("visible");
     temp = setTimeout(function () {
@@ -96,7 +113,7 @@ if (botonGenerar) {
       }, 1000);
 
     
-    console.log(tonos);
+    // console.log(tonos);
   });
-}
+
 

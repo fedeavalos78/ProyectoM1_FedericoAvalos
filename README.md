@@ -2,7 +2,7 @@
 
 Proyecto del Módulo 1 del curso Full Stack. **Cromática** es la herramienta de Colorfly Studio solicitada.
 
-- **Sitio publicado (GitHub Pages):** 
+- **Sitio publicado (GitHub Pages):** https://fedeavalos78.github.io/ProyectoM1_FedericoAvalos/
 - **Demos en GIF:** https://drive.google.com/drive/folders/1C4wP_EXZV-YZVS5RVGr6NvOz4UWg5VkV?usp=drive_link
 
 ## 1. Estructura del repositorio
