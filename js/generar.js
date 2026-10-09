@@ -1,7 +1,5 @@
 // console.log("Script cargado correctamente.");
 
-// declaración de variables
-
 // variables de elementos del DOM
 const botonGenerar = document.querySelector(".generar-paleta");
 const selectCantidad = document.getElementById("cantidad");
@@ -9,9 +7,11 @@ const selectFormato = document.getElementById("for-c");
 const contenedor = document.querySelector(".color-line");
 const toastGen = document.querySelector(".toast");
 const toastCop = document.querySelector(".toast-copiar");
+const botonGuardar = document.querySelector(".btn-guardar");
 
-//array para armar paleta
-const tonos = [];
+//arrays para guardar paletas
+let paletaActual = []
+const paletasGuardadas = JSON.parse(localStorage.getItem("paletasGuardadas")) || []
 
 //variables para armar paletas de colores
 const PASO = 30;
@@ -46,6 +46,7 @@ function hslAHex(tono, saturacion, luminosidad) {
 
   // funcion de generar
   botonGenerar.addEventListener("click", function () {
+    paletaActual=[]
     const cantColores = selectCantidad.value;
     const formatoColores = selectFormato.value;
     const cantColNum = Number(cantColores);
@@ -61,8 +62,7 @@ function hslAHex(tono, saturacion, luminosidad) {
     for (let i = 0; i < cantColNum; i++) {
       const tonoPaleta = tonoBase+(i*PASO);
       const tonoFinal = tonoPaleta % 360;
-      tonos.push(tonoFinal);
-
+     
       //crea el div donde va a ir el color con el texto del codigo
       const franjaVertical = document.createElement("div");
       franjaVertical.classList.add("color");
@@ -84,10 +84,12 @@ function hslAHex(tono, saturacion, luminosidad) {
       
       //if para generar el codigo de color en el formato solicitado
       if (formatoColores === "HSL") {
-        franjaTextoValores.textContent = `${tonoFinal}, ${SATURACION}%, ${LUMINOSIDAD}%`;      
+        franjaTextoValores.textContent = `${tonoFinal}, ${SATURACION}%, ${LUMINOSIDAD}%`;
+        paletaActual.push({formato: "HSL", color: franjaTextoValores.textContent})      
         } 
         else {
           franjaTextoValores.textContent = hslAHex(tonoFinal, SATURACION, LUMINOSIDAD);
+          paletaActual.push({formato: "HEX", color: franjaTextoValores.textContent })
         }
       
       //carga el texto en <p>
@@ -111,9 +113,12 @@ function hslAHex(tono, saturacion, luminosidad) {
     temp = setTimeout(function () {
       toastGen.classList.remove("visible");
       }, 1000);
-
     
-    // console.log(tonos);
   });
 
-
+  botonGuardar.addEventListener("click", function () {
+    console.log(paletaActual);
+    paletasGuardadas.push(paletaActual);
+    localStorage.setItem("paletasGuardadas", JSON.stringify(paletasGuardadas));
+      
+  })

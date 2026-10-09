@@ -9,7 +9,7 @@ Proyecto del Módulo 1 del curso Full Stack. **Cromática** es la herramienta de
 
 ```
 Directory structure:
-└── fedeavalos78-proyectom1_federicoavalos/
+└── fedeavalos78-ProyectoM1_FedericoAvalos/
     ├── README.md
     ├── Documentación-uso-IA.md
     ├── index.html
@@ -35,7 +35,7 @@ Directory structure:
 ---
 * FALTA HACER EL BLOQUEO
 * FALTA RESPONSIVE
-*  ALTA HACER QUE "Hacé click en un color para copiar su valor" APAREZCA SOLO DESPUES DEL PRIMER CLICK EN GENERAR
+* PODRIA HACER QUE CUANDO SE ACCEDA DIRECTAMENTE SE GENERE LA PALETA, COMO UN EVENTISTENER EN LOAD
 ---
 
 ## 3. Cómo usar la aplicación
@@ -48,7 +48,6 @@ Directory structure:
 
 Se puede ver cada paso en los GIF de la carpeta de Drive (link arriba).
 
-
 ## 4. Decisiones técnicas
 
 **Colores**
@@ -59,9 +58,7 @@ Se puede ver cada paso en los GIF de la carpeta de Drive (link arriba).
 - El **HEX** se calcula solo al mostrar, con las funciones `hslAHex` y `numeroAHex`. La lógica trabaja siempre en HSL.
 
 **JavaScript**
-EXPLICAR QUE TENGO QUE MODULIZAR
-- Los elementos del DOM se buscan una sola vez, afuera del listener. Los valores de los selects (`.value`) se leen 
-adentro, para tener el valor actual.
+- Los elementos del DOM se buscan una sola vez, afuera del listener. 
 - La cantidad llega como texto, así que se convierte con `Number()`.
 - Las funciones auxiliares van afuera del listener para no recrearse en cada clic.
 - Las franjas se crean con `createElement`, `classList.add` y `appendChild`. Para vaciar la paleta anterior se usa 
@@ -69,10 +66,9 @@ adentro, para tener el valor actual.
 - Cada franja tiene su propio listener para copiar el color.
 - Para copiar se usa `navigator.clipboard.writeText(...)`, y el aviso se muestra dentro de `.then(...)`, para que solo 
 aparezca si la copia funcionó.
-- `script.js` se carga en todas las páginas, por eso se usa `if (botonGenerar)`: así no falla donde no existe el botón.
 
 **HTML / CSS**
-EXPLICAR IMPORT DE FONTS
+- Se importan tipografías de google fonts para que sea parecida a la letra del logo de Cromática.
 - Los **toasts** son hermanos de `.color-line` (no hijos), porque `innerHTML = ""` borraría todo lo que esté adentro.
 - Los toasts se posicionan con `position: absolute` + `transform: translate(-50%, -50%)`. Se muestran con la clase 
 `.visible` (opacidad + `transition`).
@@ -83,9 +79,7 @@ para cada toast.
 - Las franjas usan **Flexbox** con `flex: 1`, así se reparten el ancho en partes iguales sin importar la cantidad 
 (6, 8 o 9). 
 
-
 ## 8. Uso de IA
 
-Durante el curso usé Claude como tutor. Las reglas que le puse y el registro de cada sesión están en el archivo .md 
-Documentación-uso-IA.
+Durante el curso usé Claude como tutor. Las reglas que le puse y el registro de cada sesión están en el archivo .md Documentación-uso-IA.
 
