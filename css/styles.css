@@ -21,6 +21,7 @@ body {
     line-height: 1.6;
     color: #333;
     background-color: #f8f9fa;
+
 }
 
 /* ============================================
@@ -112,7 +113,9 @@ h1, h2, h3,
 
 main {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    overflow: hidden; 
+
 }
 
 .portada {
@@ -150,7 +153,7 @@ margin-bottom: 2rem;
 .rueda-cromatica {
     flex: 1;
     height: 100vh;
-    width: auto;
+    max-width: 100%;
     display: block;
     rotate: 360;
     animation: rotar 10s linear infinite;

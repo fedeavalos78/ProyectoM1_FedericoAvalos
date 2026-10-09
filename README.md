@@ -1,30 +1,26 @@
 # Cromática – Generador de paletas de colores
 
-Proyecto del Módulo 1 del curso Full Stack. **Cromática** es una herramienta de **Colorfly Studio** que genera paletas de colores aleatorias y permite copiar el valor de cada color con un clic.
+Proyecto del Módulo 1 del curso Full Stack. **Cromática** es la herramienta de Colorfly Studio solicitada.
 
-- **Repositorio:** https://github.com/fedeavalos78/ProyectoM1_FedericoAvalos
 - **Sitio publicado (GitHub Pages):** 
 - **Demos en GIF:** https://drive.google.com/drive/folders/1C4wP_EXZV-YZVS5RVGr6NvOz4UWg5VkV?usp=drive_link
 
-
 ## 1. Estructura del repositorio
 
-ProyectoM1_FedericoAvalos/
-
-   ├── index.html                 * Portada
-   ├── css/
-   |   └── styles.css             * Estilos
-   ├── js/
-   |   └── script.js              * Lógica del generador
-   ├── img/                       
-   |   |__ logo                   * Logo
-   |   |__ img-portada            * Rueda cromática
-   |── pages/
-   |    ├── generar.html          * Generador de paletas
-   |    └── mis-paletas.html      * Paletas guardadas 
-   ├── Documentación-uso-IA.md    * Registro de uso de IA durante el desarrollo
-   └── README.md                  * Este archivo
-
+```
+Directory structure:
+└── fedeavalos78-proyectom1_federicoavalos/
+    ├── README.md
+    ├── Documentación-uso-IA.md
+    ├── index.html
+    ├── css/
+    │   └── styles.css
+    ├── js/
+    │   └── script.js
+    └── pages/
+        ├── generar.html
+        └── mis-paletas.html
+```
 
 ## 2. Funcionalidades
 
@@ -36,8 +32,11 @@ ProyectoM1_FedericoAvalos/
   - Debajo de cada color se ve el formato y su valor.
 - **Copiar un color:** al hacer clic sobre el cuadrado de color, su valor se copia al portapapeles.
 - **Microfeedback:** avisos tipo "toast" ("Generaste una nueva paleta", "Color copiado") y un tooltip en el botón de la portada.
-FALTA HACER LE BLOQUEO
-FALTA RESPONSIVE
+---
+* FALTA HACER EL BLOQUEO
+* FALTA RESPONSIVE
+*  ALTA HACER QUE "Hacé click en un color para copiar su valor" APAREZCA SOLO DESPUES DEL PRIMER CLICK EN GENERAR
+---
 
 ## 3. Cómo usar la aplicación
 
@@ -60,7 +59,7 @@ Se puede ver cada paso en los GIF de la carpeta de Drive (link arriba).
 - El **HEX** se calcula solo al mostrar, con las funciones `hslAHex` y `numeroAHex`. La lógica trabaja siempre en HSL.
 
 **JavaScript**
-
+EXPLICAR QUE TENGO QUE MODULIZAR
 - Los elementos del DOM se buscan una sola vez, afuera del listener. Los valores de los selects (`.value`) se leen 
 adentro, para tener el valor actual.
 - La cantidad llega como texto, así que se convierte con `Number()`.
@@ -73,6 +72,7 @@ aparezca si la copia funcionó.
 - `script.js` se carga en todas las páginas, por eso se usa `if (botonGenerar)`: así no falla donde no existe el botón.
 
 **HTML / CSS**
+EXPLICAR IMPORT DE FONTS
 - Los **toasts** son hermanos de `.color-line` (no hijos), porque `innerHTML = ""` borraría todo lo que esté adentro.
 - Los toasts se posicionan con `position: absolute` + `transform: translate(-50%, -50%)`. Se muestran con la clase 
 `.visible` (opacidad + `transition`).
