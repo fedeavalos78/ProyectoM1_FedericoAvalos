@@ -45,7 +45,7 @@ function hslAHex(tono, saturacion, luminosidad) {
 }
 
   // funcion de generar
-  botonGenerar.addEventListener("click", function () {
+  function generarPaletaNueva() {
     paletaActual=[]
     const cantColores = selectCantidad.value;
     const formatoColores = selectFormato.value;
@@ -56,7 +56,6 @@ function hslAHex(tono, saturacion, luminosidad) {
     // Limpia el div de los colores de portada
     contenedor.innerHTML = "";
 
-    
     // for que genera los colores, los divs donde van los colores
     // y el texto con el valor de cada color
     for (let i = 0; i < cantColNum; i++) {
@@ -114,7 +113,11 @@ function hslAHex(tono, saturacion, luminosidad) {
       toastGen.classList.remove("visible");
       }, 1000);
     
-  });
+  };
+
+
+
+  botonGenerar.addEventListener("click", generarPaletaNueva);
 
   botonGuardar.addEventListener("click", function () {
     console.log(paletaActual);
@@ -122,3 +125,6 @@ function hslAHex(tono, saturacion, luminosidad) {
     localStorage.setItem("paletasGuardadas", JSON.stringify(paletasGuardadas));
       
   })
+
+  // se genera la primer paleta cuando se carga la pagina
+  generarPaletaNueva();

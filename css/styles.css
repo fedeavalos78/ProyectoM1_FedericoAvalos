@@ -100,6 +100,11 @@ ul a {
     text-align: center;
     font-size: 2rem;
     font-family: 'Fredoka', sans-serif;
+    color: hsl(338, 70%, 50%);
+}
+
+.gen-paleta {
+    color: hsl(140, 60%, 45%);
 }
 
 /* ============================================
@@ -117,6 +122,11 @@ main {
     justify-content: center;
     overflow: hidden; 
 
+}
+
+.subtitulo {
+    color: hsl(191, 70%, 50%);
+    font-size: 1.5rem;
 }
 
 .portada {
@@ -339,3 +349,59 @@ label, select  {
 .btnPortada:hover::after {
     opacity: 0.7;
 }
+
+/* =====================================
+MIS PALETAS .HTML
+===================================== */
+
+.titulo-mis-paletas {
+    margin-top: 1rem;
+    text-align: center;
+}
+.main-paletas {
+    display: flex;
+    flex-direction: column;
+}
+
+.franja-horizontal-paleta {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
+
+.contendor-paletas {
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.franja-vertical {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.franja-vertical p {
+    align-self: center;
+}
+
+
+.col {
+ height: 3rem;
+
+}
+
+@media (max-width: 800px) {
+    .presentacion {
+        flex-direction: column-reverse;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .linksnav {
+        display: flex;
+        flex-direction: column;
+    }
+ }   
