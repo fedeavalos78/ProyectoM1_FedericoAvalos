@@ -1,5 +1,3 @@
-// console.log("Script cargado correctamente.");
-
 // variables de elementos del DOM
 const botonGenerar = document.querySelector(".generar-paleta");
 const selectCantidad = document.getElementById("cantidad");
@@ -28,6 +26,7 @@ const LUMINOSIDAD = 50;
 let temp = 0;
 let tempCopiar = 0; 
 let tempGuadar = 0;
+let tempBloq = 0;
 // funciones para transformar hsl/hex - ACLARACIÓN: esta función compleja 
 // fue generada integramente con IA
 
@@ -66,8 +65,13 @@ function hslAHex(tono, saturacion, luminosidad) {
     // y el texto con el valor de cada color
     for (let i = 0; i < cantColNum; i++) {
       const tonoPaleta = tonoBase+(i*PASO);
-      const tonoFinal = tonoPaleta % 360;
-     
+      let tonoFinal = tonoPaleta % 360;
+      //codigo para renderizar colores bloqueados
+      const estaBloqueado = i < bloqueados.length;
+      if (estaBloqueado) {
+        tonoFinal = bloqueados[i];
+      };  
+
       //crea el div donde va a ir el color con el texto del codigo
       const franjaVertical = document.createElement("div");
       franjaVertical.classList.add("color");
@@ -78,6 +82,9 @@ function hslAHex(tono, saturacion, luminosidad) {
       franjaColor.classList.add("c");
       franjaColor.style.backgroundColor = `hsl(${tonoFinal}, ${SATURACION}%, ${LUMINOSIDAD}%)`;
       franjaVertical.appendChild(franjaColor);
+      if (estaBloqueado) {
+        franjaColor.classList.add("borde-bloqueado")
+      };
 
       //crea el texto del formato
       const franjaTextoFormato = document.createElement("p");
@@ -103,22 +110,32 @@ function hslAHex(tono, saturacion, luminosidad) {
       //carga el boton de bloqueo
       const btnBloqueo = document.createElement("button");
       btnBloqueo.classList.add("btn-bloquear");
-      btnBloqueo.textContent = "🔓"
+      if (estaBloqueado) {
+        btnBloqueo.textContent = "🔒";
+      } else {
+        btnBloqueo.textContent = "🔓"
+      };
       franjaVertical.appendChild(btnBloqueo);
 
       btnBloqueo.addEventListener("click", function (){
          if (btnBloqueo.textContent === "🔓") {
           if (bloqueados.length < 3) {
-            btnBloqueo.textContent = "🔒"
-          } else {toastMaxBloq.classList.add("visible")}
+            btnBloqueo.textContent = "🔒";
+            bloqueados.push(tonoFinal);
+            franjaColor.classList.add("borde-bloqueado")
+          } else {
+              toastMaxBloq.classList.add("visible")
+              clearTimeout(tempBloq);
+              tempBloq = setTimeout(function () {
+                toastMaxBloq.classList.remove("visible");
+              }, 1000);
+            }
         } else {
             btnBloqueo.textContent = "🔓"
-          }    
-        // clearTimeout(tempGuadar);
-        // toastGuardar.classList.add("visible");
-        // tempGuardar = setTimeout(function () {
-        //   toastGuardar.classList.remove("visible");
-        //   }, 1000);  
+            franjaColor.classList.remove("borde-bloqueado");
+            const colorBloqueado = bloqueados.indexOf(tonoFinal);
+            bloqueados.splice(colorBloqueado, 1);
+          }   
       });
 
       //event listener para copiar codigo de color clickeando - timeout toast

@@ -321,6 +321,10 @@ label, select  {
     background-color: hsl(240, 40%, 47%);    
     color: var(--color-blanco);
 }
+
+.borde-bloqueado {
+    border: solid 1rem hsl(0, 0%, 0%);
+}
 /* ====================================
     TOOLTIPS
    ==================================== */
