@@ -573,3 +573,51 @@ Cuando itero pedidos sobre un mismo tema/codigo para llegar a mi objetivo, regis
 > **P:** Consulta cuáles son las medidas estándar (breakpoints) y si la media query va al principio o al final del CSS.
 
 **R:** Referencias: 480px (celulares chicos), 600px (celulares), 768px (tablets), 1024px (tablet horizontal o laptop chica) y 1200px+ (escritorio). `max-width` es "hasta" y `min-width` es "desde". La media query va **al final**, porque con igual peso gana la regla que viene después. Si hay varias, se ordenan de mayor a menor ancho.
+
+### Sesión 12/10/2026 (manana y tarde)
+
+>**P:** Retomar la idea de bloquear hasta 3 colores, buscando la forma más simple.
+
+**R:** Se recuperaron las decisiones del otro chat: un único array de tonos (`bloqueados`), `MAX_BLOQUEADOS = 3`, tonos repetidos permitidos, bloqueados primero al regenerar. Se acordó un botón aparte (el click en la caja ya copia), el mismo toast de los otros avisos y que los bloqueados salten a la izquierda. Riesgo detectado: `innerHTML = ""` borra todo, así que el estado vive en una variable de JS y no en el HTML.
+
+>**P:** Quiero que me guíes desde el principio para entenderlo y hacerlo yo, no que me armes todo.
+
+**R:** Se pasó a modo guía: se explica el concepto en pasos chicos, escribís vos el código y yo lo reviso.
+
+>**P:** Paso 1: variables de bloqueo. ¿Por qué algunas van en mayúscula? ¿Por qué VS Code las pone en distintos colores?
+
+**R:** `const MAX_BLOQUEADOS` (valor fijo, mayúsculas, evita "números mágicos") y `let bloqueados = []` van arriba de todo, afuera del listener. Concepto clave: alcance (*scope*); si estuvieran adentro se recrearían en cada click. Los colores son resaltado de sintaxis (*syntax highlighting*) por tipo de elemento. Se sugirió coherencia de idioma en los nombres (`MAX_BLOCK` → `MAX_BLOQUEADOS`).
+
+>**P:** Diseño del botón: un botón grande por color rompe la estética. Propuse un círculo con "Block", y después un candado con una leyenda en los controles.
+
+**R:** 1ª: círculo de tamaño fijo con `border-radius: 50%`; 2ª: candado con `aria-label` y leyenda en HTML estático indicando el máximo de 3. Se usa `<button>` (accesible por teclado) y va afuera de la caja que copia, para que los clicks no se pisen (propagación de eventos, `stopPropagation`).
+
+>**P:** ¿Cómo se desbloquea? ¿Y si el identificador es el texto del candado?
+
+**R:** Se usa un solo botón que alterna (*toggle*) con `if / else if`. El estado se lee del botón (`classList.contains` o `textContent ===`), lo que evita problemas con tonos repetidos. Lo que se guarda en el array es el tono numérico (`tonoFinal`), no el texto HSL: el dato vive en JS y la pantalla solo lo refleja. Para sacar un solo elemento: `indexOf` + `splice(posición, 1)`; `filter` sacaría todos los repetidos.
+
+>**P:** Candado abierto/cerrado simple, en blanco y negro, para usar como `textContent`.
+
+**R:** Emojis 🔓/🔒. Con `\uFE0E` pegado al emoji (selector de variación de texto) se dibuja en monocromo y obedece a `color`; alternativa: `filter: grayscale(1)`. Se recomendó declarar `CANDADO_ABIERTO` y `CANDADO_CERRADO` como constantes para escribir el emoji en un solo lugar y evitar comparaciones que den `false` en silencio.
+
+>**P:** El botón aparece en el inspector pero vacío, y el estilo no se aplica.
+
+**R:** 1ª: causas posibles de botón vacío (`textContent` mal escrito, nombre de variable distinto) y uso de `console.log` para depurar; 2ª: el inspector mostraba `class=".btn-bloquear"`: el punto se coló dentro de `classList.add`. El punto solo va en selectores (CSS, `querySelector`); en `classList.add` va el nombre solo. También faltaba el punto en `.color{ flex: 1 }` del CSS.
+
+>**P:** No logro centrar el botón.
+
+**R:** 1ª: `align-self` y `justify-self` no hacen nada porque `.color` no es `flex` ni `grid`; `text-align` centra el contenido, no el botón. 2ª: el CSS seguía con `padding` y `border-radius: 25px`. Solución en `.btn-bloquear`: `display: block`, `margin: 0 auto`, `width` y `height` iguales, `border-radius: 50%`, `padding: 0`.
+
+>**P:** Que el botón haga algo: el listener no andaba (varias vueltas).
+
+**R:** 1ª: `else` sin su `}` del `if` externo (SyntaxError que rompe todo el archivo); 2ª: `TypeError: Cannot read properties of null (reading 'addEventListener')`, porque un `querySelector` buscaba el botón antes de crearlo (orden de ejecución); 3ª: una función afuera del `for` no sabe qué botón ni qué tono le corresponde, el listener va dentro del `for`, justo después de `createElement`; 4ª: `querySelector(".btn-bloquear")` devuelve siempre el primer botón (solo andaba el primero), se usa la variable `btnBloqueo`; 5ª: se limpiaron restos del código viejo (`{` suelta, `botonBloquear` fuera de alcance, `tempGuadar`/`tempGuardar`).
+
+>**P:** Meter el tono en el array y marcar el color bloqueado.
+
+**R:** Al bloquear: `bloqueados.push(tonoFinal)` y clase `borde-bloqueado` en `franjaColor` (`classList.add`). Al desbloquear: `indexOf(tonoFinal)` guardado en una variable y `splice(posición, 1)` para sacar uno solo. Advertencia: `indexOf` devuelve `-1` si no encuentra y `splice(-1, 1)` borraría el último elemento.
+
+>**P:** Que al generar la paleta se conserven los bloqueados, con candado cerrado y borde.
+
+**R:** 1ª: plan y trampas (orden de líneas dentro del `for`, candado de nacimiento idéntico al del listener, no tocar `bloqueados` al regenerar); 2ª: se dieron tres piezas cortas: `let tonoFinal` más `const estaBloqueado = i < bloqueados.length` con `tonoFinal = bloqueados[i]` arriba del `for`, y dos `if (estaBloqueado)` (uno para la clase del borde tras crear `franjaColor`, otro para el candado cerrado tras crear `btnBloqueo`); 3ª: la pieza 1 estaba bien, faltaban las piezas 2 y 3. Sin ellas, hacer click en un candado que nace "abierto" duplicaría el tono en el array.
+
+**Capturas sugeridas como evidencia:** inspector con `class=".btn-bloquear"` (error del punto), consola con el `TypeError`, y la paleta con candados cerrados y borde tras regenerar.
