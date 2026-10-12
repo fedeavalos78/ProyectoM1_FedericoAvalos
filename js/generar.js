@@ -9,11 +9,11 @@ const toastGen = document.querySelector(".toast");
 const toastCop = document.querySelector(".toast-copiar");
 const botonGuardar = document.querySelector(".btn-guardar");
 const toastGuardar = document.querySelector(".toast-guardar-paleta");
-const botonBloquear = document.querySelector(".btn-bloquear-color");
 const toastBloqueado = document.querySelector(".toast-bloquear-color");
 const toastDesbloqueado = document.querySelector(".toast-desbloquear-color");
+const toastMaxBloq = document.querySelector(".toast-max-bloq");
 
-//arrays para guardar paletas y bloquear colores
+//variables para guardar paletas y bloquear colores
 let paletaActual = []
 const paletasGuardadas = JSON.parse(localStorage.getItem("paletasGuardadas")) || []
 const MAX_BLOQUEADOS = 3
@@ -104,7 +104,22 @@ function hslAHex(tono, saturacion, luminosidad) {
       const btnBloqueo = document.createElement("button");
       btnBloqueo.classList.add("btn-bloquear");
       btnBloqueo.textContent = "🔓"
-      franjaVertical.appendChild(btnBloqueo);  
+      franjaVertical.appendChild(btnBloqueo);
+
+      btnBloqueo.addEventListener("click", function (){
+         if (btnBloqueo.textContent === "🔓") {
+          if (bloqueados.length < 3) {
+            btnBloqueo.textContent = "🔒"
+          } else {toastMaxBloq.classList.add("visible")}
+        } else {
+            btnBloqueo.textContent = "🔓"
+          }    
+        // clearTimeout(tempGuadar);
+        // toastGuardar.classList.add("visible");
+        // tempGuardar = setTimeout(function () {
+        //   toastGuardar.classList.remove("visible");
+        //   }, 1000);  
+      });
 
       //event listener para copiar codigo de color clickeando - timeout toast
       franjaColor.addEventListener("click", function () {
@@ -138,7 +153,9 @@ function hslAHex(tono, saturacion, luminosidad) {
     tempGuardar = setTimeout(function () {
       toastGuardar.classList.remove("visible");
       }, 1000);  
-  })
+  });
 
+  
   // se genera la primer paleta cuando se carga la pagina
+
   generarPaletaNueva();
