@@ -8,10 +8,16 @@ const contenedor = document.querySelector(".color-line");
 const toastGen = document.querySelector(".toast");
 const toastCop = document.querySelector(".toast-copiar");
 const botonGuardar = document.querySelector(".btn-guardar");
+const toastGuardar = document.querySelector(".toast-guardar-paleta");
+const botonBloquear = document.querySelector(".btn-bloquear-color");
+const toastBloqueado = document.querySelector(".toast-bloquear-color");
+const toastDesbloqueado = document.querySelector(".toast-desbloquear-color");
 
-//arrays para guardar paletas
+//arrays para guardar paletas y bloquear colores
 let paletaActual = []
 const paletasGuardadas = JSON.parse(localStorage.getItem("paletasGuardadas")) || []
+const MAX_BLOQUEADOS = 3
+let bloqueados = []
 
 //variables para armar paletas de colores
 const PASO = 30;
@@ -21,7 +27,7 @@ const LUMINOSIDAD = 50;
 //variables para timeout
 let temp = 0;
 let tempCopiar = 0; 
-
+let tempGuadar = 0;
 // funciones para transformar hsl/hex - ACLARACIÓN: esta función compleja 
 // fue generada integramente con IA
 
@@ -94,6 +100,12 @@ function hslAHex(tono, saturacion, luminosidad) {
       //carga el texto en <p>
       franjaVertical.appendChild(franjaTextoValores);
       
+      //carga el boton de bloqueo
+      const btnBloqueo = document.createElement("button");
+      btnBloqueo.classList.add("btn-bloquear");
+      btnBloqueo.textContent = "🔓"
+      franjaVertical.appendChild(btnBloqueo);  
+
       //event listener para copiar codigo de color clickeando - timeout toast
       franjaColor.addEventListener("click", function () {
         navigator.clipboard.writeText(franjaTextoValores.textContent).then(function() {
@@ -115,15 +127,17 @@ function hslAHex(tono, saturacion, luminosidad) {
     
   };
 
-
-
   botonGenerar.addEventListener("click", generarPaletaNueva);
 
   botonGuardar.addEventListener("click", function () {
-    console.log(paletaActual);
+    // console.log(paletaActual);
     paletasGuardadas.push(paletaActual);
     localStorage.setItem("paletasGuardadas", JSON.stringify(paletasGuardadas));
-      
+    clearTimeout(tempGuadar);
+    toastGuardar.classList.add("visible");
+    tempGuardar = setTimeout(function () {
+      toastGuardar.classList.remove("visible");
+      }, 1000);  
   })
 
   // se genera la primer paleta cuando se carga la pagina

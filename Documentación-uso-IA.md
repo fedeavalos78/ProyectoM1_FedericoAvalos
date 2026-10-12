@@ -500,3 +500,76 @@ Cuando itero pedidos sobre un mismo tema/codigo para llegar a mi objetivo, regis
 
 **R:** El guardado funciona: las paletas se suman y persisten entre sesiones, con la estructura lista de paletas y cada paleta lista de `{formato, color}`. Se detectó una paleta vacía (`[]`) al principio, guardada al apretar "Guardar" sin haber generado nada. Se propusieron generar la primera paleta al cargar y/o una guarda `if (paletaActual.length === 0) return;`, y borrar esa entrada desde Application > Local Storage.
 
+### Sesión 11/10/2026 (manana y tarde)
+
+> **P:** Consulta cómo hacer que la primera paleta se genere sola al cargar `generar.html`.
+
+**R:** Hay que llamar a la misma función del botón sin esperar el click. Se explicaron tres caminos: llamada suelta al final del JS, `DOMContentLoaded` y `window.onload`. Como el `<script>` está en el `<head>` con `defer`, alcanza con la llamada suelta, porque `defer` ejecuta el JS cuando el HTML ya está armado.
+
+> **P:** Pregunta si debe declarar la función primero, después el listener y al final llamarla.
+
+**R:** Sí. La función anónima se saca del `addEventListener` y se le pone nombre. El listener recibe el nombre **sin paréntesis** y la llamada final lleva paréntesis. Se dio un esqueleto de 3 bloques.
+
+> **P:** Consulta cómo comentar una línea y un grupo de líneas en VS Code.
+
+**R:** `Ctrl + /` comenta y descomenta líneas sueltas o seleccionadas. Para un comentario de bloque único se usa `Shift + Alt + A`. Cada lenguaje tiene su sintaxis: `//`, `<!-- -->` y `/* */`. Buena práctica: comentar el porqué, no el qué.
+
+> **P:** Pasó su código y la paleta no se generaba.
+
+**R:** Causa: `addEventListener("click", generarPaletaNueva())` con paréntesis ejecuta la función en el momento y le pasa `undefined` al listener. Solución: sacar los paréntesis. Se recomendó mirar la consola (`F12`) ante cualquier error.
+
+> **P:** Consulta cómo poner el icono al lado del título en la pestaña del navegador.
+
+**R:** Es el favicon: `<link rel="icon" href="favicon.png" type="image/png">` en el `<head>` de cada HTML. Si no se actualiza, es la caché (`Ctrl + F5`).
+
+> **P:** Quiere renderizar en `mis-paletas.html` lo guardado con el botón Guardar.
+
+**R:** `localStorage` se comparte entre páginas del mismo sitio. Se lee con `JSON.parse(localStorage.getItem(...))` y se recorre con dos `for` anidados (paletas y colores). Se recomendó un archivo nuevo, `mis-paletas.js`. Se advirtió que el HSL se guardó sin `hsl()` y hay que armarlo al renderizar.
+
+> **P:** Muestra la consola con `Array(9)` y el error `ERR_FILE_NOT_FOUND` de `script.js` en `mis-paletas.html`.
+
+**R:** `Array(9)` confirma que el guardado funciona. El error es de ruta: desde `pages/` hay que usar `../`. Además, `script.js` no debe cargarse en esa página porque busca elementos que no existen ahí.
+
+> **P:** Pregunta dónde ver el storage en las DevTools y recibe el error `paletasGuardadas is not defined`.
+
+**R:** Menú `»` > Application > Local storage > tabla Key/Value. El error se debe a que cada archivo JS es independiente: hay que declarar `const paletasGuardadas = JSON.parse(localStorage.getItem("paletasGuardadas")) || []` en `mis-paletas.js`. Se señaló el typo "scipt" en un `console.log`.
+
+> **P:** Pide recordar `JSON.parse` y `JSON.stringify`, y confirma que la diferencia es que al parsear el texto se lee como estructura de datos.
+
+**R:** `localStorage` solo guarda texto. `stringify` convierte array u objeto en string (al guardar) y `parse` lo reconstruye como estructura usable (al leer). Analogía: receta escrita (texto) y plato cocinado (estructura). Error típico: olvidar `parse` y recorrer un texto letra por letra.
+
+> **P:** Pregunta cómo mover líneas hacia la izquierda en VS Code.
+
+**R:** `Shift + Tab` desindenta y `Tab` indenta. Para formatear todo el archivo, `Shift + Alt + F`, que ayuda a detectar llaves sin cerrar.
+
+> **P:** Pregunta si puede usar el mismo nombre de variable en dos archivos JS.
+
+**R:** Sí, si cada archivo se carga en una página distinta. Si van en el mismo HTML, un `const` repetido da `SyntaxError: ... already been declared`. Las variables dentro de funciones no chocan.
+
+> **P:** Pregunta cómo identificar si el formato viene en HEX o HSL.
+
+**R:** Se valida su primer `for` y se sugiere declarar `const paleta` dentro del bucle. Para el formato se lee `objeto.formato` y se compara con `===` (no `=`), respetando mayúsculas (`"HSL"`/`"HEX"`).
+
+> **P:** Arma el `for` anidado para leer formato y código de cada color.
+
+**R:** 1ª: leía `paleta.formato` en vez de entrar al objeto de cada color; se explicó el segundo `for`. 2ª: reutilizaba `i` y el límite usaba una variable no declarada; se corrigió a `j` y `paleta.length`. 3ª: `lenght` mal escrito y `paleta[i]` en vez de `paleta[j]`. 4ª: errores `formatoColores is not defined` (variable de `script.js`) y `Cannot read properties of undefined`; el primer diagnóstico fue erróneo y la causa real era `paleta[i]` en lugar de `paleta[j]`.
+
+> **P:** Pregunta por qué el título queda al lado de los colores si el `main` tiene `display: flex` y `flex-direction: column`.
+
+**R:** Con `column` deberían apilarse, así que probablemente la regla no se aplica. Causas posibles: clase distinta, otra regla pisando, llave `}` faltante, ruta del CSS sin `../` o hijos no directos del `main`. Se indicó revisar Elements > Styles en las DevTools.
+
+> **P:** Consulta por el cuadrado de color que se pisa con las letras.
+
+**R:** Probable desborde por `height` fijo en `.color`, `height: 100%` en `.c`, `position: absolute` o clases reutilizadas de `generar.html`. Se pidió el CSS de `.color` y `.c` y el JS de `createElement`/`appendChild`.
+
+> **P:** Al poner `display: flex` a `.franja-vertical` desaparece el color.
+
+**R:** El `div.col` está vacío y en flex fila mide 0 de ancho. Solución: `flex-direction: column` en `.franja-vertical` y un `height` en `.col`. Se detectó además el bug `50%%`: el valor guardado ya trae `%`, hay que quitar el de afuera.
+
+> **P:** Quiere hacer el nav responsive (links en `flex-direction: column`) y pregunta por la sintaxis de media query.
+
+**R:** `@media (max-width: 600px) { .navbar { ... } }`. El `<nav>` tiene `display: grid`, así que dentro de la media query hay que pasarlo a `flex` antes de usar `flex-direction`. Se recomendó agregar `<meta name="viewport" content="width=device-width, initial-scale=1.0">` y probar con el modo dispositivo de las DevTools.
+
+> **P:** Consulta cuáles son las medidas estándar (breakpoints) y si la media query va al principio o al final del CSS.
+
+**R:** Referencias: 480px (celulares chicos), 600px (celulares), 768px (tablets), 1024px (tablet horizontal o laptop chica) y 1200px+ (escritorio). `max-width` es "hasta" y `min-width` es "desde". La media query va **al final**, porque con igual peso gana la regla que viene después. Si hay varias, se ordenan de mayor a menor ancho.

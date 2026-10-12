@@ -227,7 +227,11 @@ margin-bottom: 2rem;
 .color p{
     font-size: 1rem;
     font-weight: bold;
-    text-align: center;
+    text-align: center;    
+}
+.color button{
+    text-align: center;    
+
 }
 
 .c1 {background-color: hsl(280, 70%, 10%)}
@@ -253,8 +257,15 @@ margin-bottom: 2rem;
     text-align: center;
 }
 
+
 .tituloClickCopiar {
     color: hsl(191, 70%, 50%);
+}
+
+.tituloClickBloquear{
+    color:hsl(240, 40%, 47%);
+    font-size: 1rem; 
+    padding-bottom: 1rem;
 }
 
 .tituloCantCol {
@@ -292,6 +303,23 @@ label, select  {
     background-color: hsl(40, 90%, 50%);    
     color: var(--color-blanco);
 
+}
+
+.btn-bloquear{
+    border-radius: 50%;
+    border: 3px solid hsl(240, 40%, 47%);
+    padding: 0.5rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.btn-bloquear:hover{
+    background-color: hsl(240, 40%, 47%);    
+    color: var(--color-blanco);
 }
 /* ====================================
     TOOLTIPS
@@ -387,12 +415,13 @@ MIS PALETAS .HTML
     align-self: center;
 }
 
-
 .col {
  height: 3rem;
 
 }
-
+/* ==================================
+RESPONSIVE
+================================== */
 @media (max-width: 800px) {
     .presentacion {
         flex-direction: column-reverse;
@@ -403,5 +432,10 @@ MIS PALETAS .HTML
     .linksnav {
         display: flex;
         flex-direction: column;
+    }
+
+    .btn-bloquear{
+        font-size: 0.5rem;
+        padding: 0.2rem;
     }
  }   
