@@ -405,7 +405,7 @@ MIS PALETAS .HTML
 
 .contendor-paletas {
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
 }
 
 .franja-vertical {
