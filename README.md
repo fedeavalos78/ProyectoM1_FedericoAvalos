@@ -35,7 +35,8 @@ Proyecto del Módulo 1 del curso Full Stack. **Cromática** es la herramienta de
     │   └── mis-paletas.js
     └── pages/
         ├── generar.html
-        └── mis-paletas.html```
+        └── mis-paletas.html
+```
 
 ## 2. Funcionalidades
 
