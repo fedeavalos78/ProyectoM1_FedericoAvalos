@@ -8,11 +8,26 @@ Proyecto del Módulo 1 del curso Full Stack. **Cromática** es la herramienta de
 ## 1. Estructura del repositorio
 
 ```
-Directory structure:
 └── fedeavalos78-ProyectoM1_FedericoAvalos/
     ├── README.md
     ├── Documentación-uso-IA.md
     ├── index.html
+    ├── image.png
+    ├── image-1.png
+    ├── image-2.png
+    ├── image-3.png
+    ├── image-4.png
+    ├── image-5.png
+    ├── image-6.png
+    ├── image-7.png
+    ├── image-8.png
+    ├── image-9.png
+    ├── image-10.png
+    ├── image-11.png
+    ├── image-12.png
+    ├── image-13.png
+    ├── image-14.png
+    ├── image-15.png
     ├── css/
     │   └── styles.css
     ├── js/
@@ -20,8 +35,7 @@ Directory structure:
     │   └── mis-paletas.js
     └── pages/
         ├── generar.html
-        └── mis-paletas.html
-```
+        └── mis-paletas.html```
 
 ## 2. Funcionalidades
 
